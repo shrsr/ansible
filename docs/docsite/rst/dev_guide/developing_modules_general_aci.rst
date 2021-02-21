@@ -34,9 +34,33 @@ If you need specific functionality, you have 2 options:
    `APIC REST API Configuration Guide <https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/2-x/rest_cfg/2_1_x/b_Cisco_APIC_REST_API_Configuration_Guide.html>`_
        Detailed guide on how the APIC REST API is designed and used, incl. many examples.
 
+.. _aci_dev_guide_git:
+
+Fork, Clone and Branch
+======================
+
+* Go to: https://github.com/CiscoDevNet/ansible-aci
+* Fork CiscoDevnet’s **ansible-aci** repo. 
+
+.. seealso::
+
+   `_How to fork a repo: <https://docs.github.com/en/github/getting-started-with-github/fork-a-repo>`_
+   
+* Clone the forked repo by going to terminal and enter: 
+.. code-block:: Blocks
+
+   git clone https://github.com/CiscoDevNet/ansible-aci.git
+
+* Create a branch from your master by using the following commands on the terminal and add the main repo **upstream**:
+.. code-block:: Blocks
+   
+   git master
+   git checkout -b <branch-name> 
+   git remote add upstream https://github.com/CiscoDevNet/ansible-aci.git
+
+* Go to **ansible-aci -> plugins -> modules** folder. The new module goes in this folder.
 
 So let's look at how a typical ACI module is built up.
-
 
 .. _aci_dev_guide_module_structure:
 
@@ -311,6 +335,44 @@ To have the module exit, call the ACIModule method ``exit_json()``. This method 
 
     if __name__ == '__main__':
         main()
+
+Documentation
+-------------
+All the parameters defined in the argument_spec like the object_id, configurable properties of the object, parent object IDs, state etc. need to be documented in the same file as the module. The format for proper documentation is shown below:
+
+.. code-block:: yaml
+
+   DOCUMENTATION = r'''
+   ---
+   module: aci_<name_of_module>
+   short_description: Short description for the module being created (config:<name_of_class>)
+   description:
+   - Functionality one
+   - Functionality two
+   options:
+     object_id:
+       description:
+       - Description for object
+       type: data type of object eg. 'str'
+       aliases: [ Alternate name for the object ]
+     configurable property one:
+       description:
+       - Description for property one
+       type: Property's data type eg. 'int'
+     configurable property two:
+       description:
+       - Description for property two
+       type: Property's data type eg. 'bool'
+       choices: [ choice one, choice two ]
+     state:
+       description:
+       - Use C(present) or C(absent) for adding or removing.
+       - Use C(query) for listing an object or multiple objects.
+       type: str
+       choices: [ absent, present, query ]
+       default: present
+   extends_documentation_fragment:
+   - cisco.aci.aci
 
 
 .. _aci_dev_guide_testing:
