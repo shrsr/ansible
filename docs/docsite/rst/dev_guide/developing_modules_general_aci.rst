@@ -378,47 +378,48 @@ Examples
 --------
 Examples section must consist of Ansible tasks which can be used as a reference to build playbooks. The format of this section is shown below:
 
-EXAMPLES = r'''
-- name: Add a new object
-  cisco.aci.aci_<name_of_module>:
-    host: apic
-    username: admin
-    password: SomeSecretePassword
-    object_id: id
-    object_prop1: prop1
-    object_prop2: prop2
-    state: present
-   delegate_to: localhost
+.. code-block:: yaml
 
-- name: Remove an object
-  cisco.aci.aci_<name_of_module>:
-    host: apic
-    username: admin
-    password: SomeSecretePassword
-    object_id: id
-    object_prop1: prop1
-    object_prop2: prop2
-    state: absent
-   delegate_to: localhost
+   EXAMPLES = r'''
+   - name: Add a new object
+     cisco.aci.aci_<name_of_module>:
+       host: apic
+       username: admin
+       password: SomeSecretePassword
+       object_id: id
+       object_prop1: prop1
+       object_prop2: prop2
+       state: present
+      delegate_to: localhost
 
-- name: Query an object
-  cisco.aci.aci_<name_of_module>:
-    host: apic
-    username: admin
-    password: SomeSecretePassword
-    object_id: id
-    state: query
-   delegate_to: localhost
+   - name: Remove an object
+     cisco.aci.aci_<name_of_module>:
+       host: apic
+       username: admin
+       password: SomeSecretePassword
+       object_id: id
+       object_prop1: prop1
+       object_prop2: prop2
+       state: absent
+      delegate_to: localhost
 
-- name: Query all objects
-  cisco.aci.aci_<name_of_module>:
-    host: apic
-    username: admin
-    password: SomeSecretePassword
-    state: query
-   delegate_to: localhost
-'''
+   - name: Query an object
+     cisco.aci.aci_<name_of_module>:
+       host: apic
+       username: admin
+       password: SomeSecretePassword
+       object_id: id
+       state: query
+      delegate_to: localhost
 
+   - name: Query all objects
+     cisco.aci.aci_<name_of_module>:
+       host: apic
+       username: admin
+       password: SomeSecretePassword
+       state: query
+      delegate_to: localhost
+   '''
 
 .. _aci_dev_guide_testing:
 
