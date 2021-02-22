@@ -338,7 +338,7 @@ To have the module exit, call the ACIModule method ``exit_json()``. This method 
 
 Documentation
 -------------
-All the parameters defined in the argument_spec like the object_id, configurable properties of the object, parent object IDs, state etc. need to be documented in the same file as the module. The format for proper documentation is shown below:
+All the parameters defined in the argument_spec like the object_id, configurable properties of the object, parent object IDs, state etc. need to be documented in the same file as the module. The format of documentation is shown below:
 
 .. code-block:: yaml
 
