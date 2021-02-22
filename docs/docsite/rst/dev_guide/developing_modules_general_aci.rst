@@ -354,13 +354,13 @@ All the parameters defined in the argument_spec like the object_id, configurable
        description:
        - Description of object
        type: data type of object eg. 'str'
-       aliases: [ Alternate name for the object ]
-     configurable property one:
+       aliases: [ Alternate name of the object ]
+     object_prop1:
        description:
        - Description of property one
        type: Property's data type eg. 'int'
        choices: [ choice one, choice two ]
-     configurable property two:
+     object_prop2:
        description:
        - Description of property two
        type: Property's data type eg. 'bool'
@@ -373,6 +373,51 @@ All the parameters defined in the argument_spec like the object_id, configurable
        default: present
    extends_documentation_fragment:
    - cisco.aci.aci
+
+Examples
+--------
+Examples section must consist of Ansible tasks which can be used as a reference to build playbooks. The format of this section is shown below:
+
+EXAMPLES = r'''
+- name: Add a new object
+  cisco.aci.aci_<name_of_module>:
+    host: apic
+    username: admin
+    password: SomeSecretePassword
+    object_id: id
+    object_prop1: prop1
+    object_prop2: prop2
+    state: present
+   delegate_to: localhost
+
+- name: Remove an object
+  cisco.aci.aci_<name_of_module>:
+    host: apic
+    username: admin
+    password: SomeSecretePassword
+    object_id: id
+    object_prop1: prop1
+    object_prop2: prop2
+    state: absent
+   delegate_to: localhost
+
+- name: Query an object
+  cisco.aci.aci_<name_of_module>:
+    host: apic
+    username: admin
+    password: SomeSecretePassword
+    object_id: id
+    state: query
+   delegate_to: localhost
+
+- name: Query all objects
+  cisco.aci.aci_<name_of_module>:
+    host: apic
+    username: admin
+    password: SomeSecretePassword
+    state: query
+   delegate_to: localhost
+'''
 
 
 .. _aci_dev_guide_testing:
