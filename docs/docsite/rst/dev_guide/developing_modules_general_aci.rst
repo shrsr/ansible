@@ -345,25 +345,25 @@ All the parameters defined in the argument_spec like the object_id, configurable
    DOCUMENTATION = r'''
    ---
    module: aci_<name_of_module>
-   short_description: Short description for the module being created (config:<name_of_class>)
+   short_description: Short description of the module being created (config:<name_of_class>)
    description:
    - Functionality one
    - Functionality two
    options:
      object_id:
        description:
-       - Description for object
+       - Description of object
        type: data type of object eg. 'str'
        aliases: [ Alternate name for the object ]
      configurable property one:
        description:
-       - Description for property one
+       - Description of property one
        type: Property's data type eg. 'int'
+       choices: [ choice one, choice two ]
      configurable property two:
        description:
-       - Description for property two
+       - Description of property two
        type: Property's data type eg. 'bool'
-       choices: [ choice one, choice two ]
      state:
        description:
        - Use C(present) or C(absent) for adding or removing.
