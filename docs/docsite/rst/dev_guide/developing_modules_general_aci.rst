@@ -627,56 +627,42 @@ The following test file verifies the Layer2 Out configuration on ACI module:
        - remove_l2out is changed
        - remove_l2out.previous.0.l2extOut.attributes.dn == "uni/tn-ansible_tenant/l2out-ansible_l2out"
        - remove_l2out.previous.0.l2extOut.attributes.name == "ansible_l2out"
+       
+Sanity checks, Testing ACI Integration and Generating Coverage Report
+---------------------------------------------------------------------
 
-Testing for sanity checks
--------------------------
-You can run from your fork something like:
-
-.. code-block:: bash
-
-    $ ansible-test sanity --python 2.7 lib/ansible/modules/network/aci/aci_tenant.py
-
-.. seealso::
-
-   :ref:`testing_sanity`
-        Information on how to build sanity tests.
-
-
-Testing ACI integration tests
------------------------------
-You can run this:
-
-.. code-block:: bash
-
-    $ ansible-test network-integration --continue-on-error --allow-unsupported --diff -v aci_tenant
-
-.. note:: You may need to add ``--python 2.7`` or ``--python 3.6`` in order to use the correct python version for performing tests.
-
-You may want to edit the used inventory at *test/integration/inventory.networking* and add something like:
+* Go to **ansible-aci -> tests -> intergartion -> inventory.networking** and update the file
 
 .. code-block:: ini
 
-    [aci:vars]
-    aci_hostname=my-apic-1
-    aci_username=admin
-    aci_password=my-password
-    aci_use_ssl=yes
-    aci_use_proxy=no
+   [aci]
+   <apic-label-name> ansible_host=<apic-host> ansible_connection=local aci_hostname=<apic-host> 
+   aci_username=<apic-username> aci_password= <apic-password>
 
-    [aci]
-    localhost ansible_ssh_host=127.0.0.1 ansible_connection=local
+* Go to **ansible-aci** on terminal and test the new module using the following commands:
 
-.. seealso::
+.. code-block:: Blocks
 
-   :ref:`testing_integration`
-       Information on how to build integration tests.
+      ansible-galaxy collection build --force
+      ansible-galaxy collection install cisco-aci-* --force
+      cd ~/.ansible/collections/ansible_collections/cisco/aci
+      ansible-test sanity --docker --color --truncate 0 -v --coverage
+      ansible-test network-integration --docker --color --truncate 0 -vvv --coverage aci_<your module name>
+      ansible-test coverage report
+      ansible-test coverage html
+      open ~/.ansible/collections/ansible_collections/cisco/aci/tests/output/reports/coverage/index.html
+
+* Commit and Push the code to your forked repo:
+The following git commands are for reference:
+
+.. code-block:: Blocks
+    
+       git status
+       git add <new-files>
+       git commit -m <commit message>
+       git fetch upstream master
+       git rebase upstream/master
+       git push origin <branch-name>
 
 
-Testing for test coverage
--------------------------
-You can run this:
-
-.. code-block:: bash
-
-    $ ansible-test network-integration --python 2.7 --allow-unsupported --coverage aci_tenant
-    $ ansible-test coverage report
+* Make a pull request from your forked repo to the original repo.
