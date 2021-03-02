@@ -507,125 +507,126 @@ Creating a test file for the ACI module
 
 Example is provided below for reference.
 
-The following test file verifies the Layer2 Out configuration on ACI module -
+The following test file verifies the Layer2 Out configuration on ACI module:
+
 .. code-block:: yaml
 
-# Test code for the ACI modules
-# Copyright: (c) <year>, <Name> (@<github id>)
+   # Test code for the ACI modules
+   # Copyright: (c) <year>, <Name> (@<github id>)
 
-# GNU General Public License v3.0+ (see LICENSE or https://www.gnu.org/licenses/gpl-3.0.txt)
+   # GNU General Public License v3.0+ (see LICENSE or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-- name: Test that we have an ACI APIC host, ACI username and ACI password
-  fail:
-    msg: 'Please define the following variables: aci_hostname, aci_username and aci_password.'
-  when: aci_hostname is not defined or aci_username is not defined or aci_password is not defined
+   - name: Test that we have an ACI APIC host, ACI username and ACI password
+     fail:
+       msg: 'Please define the following variables: aci_hostname, aci_username and aci_password.'
+     when: aci_hostname is not defined or aci_username is not defined or aci_password is not defined
 
-# GET Credentials from the inventory
-- name: Set vars
-   set_fact: 
-   aci_info: &aci_info
-    host: "{{ aci_hostname }}"
-    username: "{{ aci_username }}"
-    password: "{{ aci_password }}"
-    validate_certs: '{{ aci_validate_certs | default(false) }}'
-    use_ssl: '{{ aci_use_ssl | default(true) }}'
-    use_proxy: '{{ aci_use_proxy | default(true) }}'
-    output_level: debug
+   # GET Credentials from the inventory
+   - name: Set vars
+      set_fact: 
+      aci_info: &aci_info
+       host: "{{ aci_hostname }}"
+       username: "{{ aci_username }}"
+       password: "{{ aci_password }}"
+       validate_certs: '{{ aci_validate_certs | default(false) }}'
+       use_ssl: '{{ aci_use_ssl | default(true) }}'
+       use_proxy: '{{ aci_use_proxy | default(true) }}'
+       output_level: debug
 
-# CLEAN ENVIRONMENT
-- name: Remove ansible_tenant if it already exists
-  aci_tenant:
-    <<: *aci_info 
-    tenant: ansible_tenant
-    state: absent
+   # CLEAN ENVIRONMENT
+   - name: Remove ansible_tenant if it already exists
+     aci_tenant:
+       <<: *aci_info 
+       tenant: ansible_tenant
+       state: absent
 
-- name: Add a new tenant required for l2out
-   aci_tenant:
-    <<: *aci_info 
-    tenant: ansible_tenant
-    description: Ansible tenant
-    state: present
+   - name: Add a new tenant required for l2out
+      aci_tenant:
+       <<: *aci_info 
+       tenant: ansible_tenant
+       description: Ansible tenant
+       state: present
 
-# ADD l2out 
-- name: Add L2Out
-  aci_l2out:
-    <<: *aci_info
-    tenant: ansible_tenant
-    l2out: ansible_l2out
-    description: Test deployment 
-    bd: ansible_bd
-    domain: l2Dom
-    vlan: 3200
-    state: present
-  register: add_l2out
+   # ADD l2out 
+   - name: Add L2Out
+     aci_l2out:
+       <<: *aci_info
+       tenant: ansible_tenant
+       l2out: ansible_l2out
+       description: Test deployment 
+       bd: ansible_bd
+       domain: l2Dom
+       vlan: 3200
+       state: present
+     register: add_l2out
 
-- name: Verify that ansible_l2out has been created with correct attributes
-  assert:
-    that:
-    - add_l2out.current.0.l2extOut.attributes.dn == "uni/tn-ansible_tenant/l2out-ansible_l2out"
-    - add_l2out.current.0.l2extOut.attributes.name == "ansible_l2out"
+   - name: Verify that ansible_l2out has been created with correct attributes
+     assert:
+       that:
+       - add_l2out.current.0.l2extOut.attributes.dn == "uni/tn-ansible_tenant/l2out-ansible_l2out"
+       - add_l2out.current.0.l2extOut.attributes.name == "ansible_l2out"
 
-# ADD l2out again to check idempotency
-- name: Add the L2Out again
-  aci_l2out:
-    <<: *aci_info
-    tenant: ansible_tenant
-    l2out: ansible_l2out
-    description: Test deployment 
-    bd: ansible_bd
-    domain: l2Dom
-    vlan: 3200
-    state: present
-  register: add_l2out_again
+   # ADD l2out again to check idempotency
+   - name: Add the L2Out again
+     aci_l2out:
+       <<: *aci_info
+       tenant: ansible_tenant
+       l2out: ansible_l2out
+       description: Test deployment 
+       bd: ansible_bd
+       domain: l2Dom
+       vlan: 3200
+       state: present
+     register: add_l2out_again
 
-- name: Verify that ansible_l2out stays the same
-  assert:
-    that:
-    - add_l2out_again is not changed
+   - name: Verify that ansible_l2out stays the same
+     assert:
+       that:
+       - add_l2out_again is not changed
 
-# QUERY l2out
-- name: Query the L2Out  
-  aci_l2out:
-    <<: *aci_info
-    tenant: ansible_tenant
-    l2out: ansible_l2out
-    state: query
-  register: query_l2out
+   # QUERY l2out
+   - name: Query the L2Out  
+     aci_l2out:
+       <<: *aci_info
+       tenant: ansible_tenant
+       l2out: ansible_l2out
+       state: query
+     register: query_l2out
 
-- name: Verify the attributes under query_l2out
-  assert:
-    that:
-    - query_l2out is not changed
-    - query_l2out.current.0.l2extOut.attributes.dn == "uni/tn-ansible_tenant/l2out-ansible_l2out"
-    - query_l2out.current.0.l2extOut.attributes.name == "ansible_l2out"
+   - name: Verify the attributes under query_l2out
+     assert:
+       that:
+       - query_l2out is not changed
+       - query_l2out.current.0.l2extOut.attributes.dn == "uni/tn-ansible_tenant/l2out-ansible_l2out"
+       - query_l2out.current.0.l2extOut.attributes.name == "ansible_l2out"
 
-- name: Query all l2outs under a specific tenant
-  aci_l2out:
-    <<: *aci_info
-    tenant: ansible_tenant
-    state: query
-  register: query_l2out_all
+   - name: Query all l2outs under a specific tenant
+     aci_l2out:
+       <<: *aci_info
+       tenant: ansible_tenant
+       state: query
+     register: query_l2out_all
 
-- name: Verify query_l2out_all
-  assert:
-    that:
-    - query_l2out_all is not changed
+   - name: Verify query_l2out_all
+     assert:
+       that:
+       - query_l2out_all is not changed
 
-# DELETE l2out
-- name: Remove the L2Out 
-  aci_l2out:
-    <<: *aci_info
-    tenant: ansible_tenant
-    l2out: ansible_l2out
-    state: absent
-  register: remove_l2out
+   # DELETE l2out
+   - name: Remove the L2Out 
+     aci_l2out:
+       <<: *aci_info
+       tenant: ansible_tenant
+       l2out: ansible_l2out
+       state: absent
+     register: remove_l2out
 
-- name: Verify remove_l2out
-  assert:
-    that:
-    - remove_l2out is changed
-    - remove_l2out.previous.0.l2extOut.attributes.dn == "uni/tn-ansible_tenant/l2out-ansible_l2out"
-    - remove_l2out.previous.0.l2extOut.attributes.name == "ansible_l2out"
+   - name: Verify remove_l2out
+     assert:
+       that:
+       - remove_l2out is changed
+       - remove_l2out.previous.0.l2extOut.attributes.dn == "uni/tn-ansible_tenant/l2out-ansible_l2out"
+       - remove_l2out.previous.0.l2extOut.attributes.name == "ansible_l2out"
 
 Testing for sanity checks
 -------------------------
