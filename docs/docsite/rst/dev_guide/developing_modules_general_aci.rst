@@ -20,24 +20,21 @@ Introduction
 ============
 The `cisco.aci collection <https://galaxy.ansible.com/cisco/aci>`_ already includes a large number of Cisco ACI modules, however the ACI object model is huge and covering all possible functionality would easily cover more than 1500 individual modules.
 
-If you need specific functionality, you have 2 options:
+If you need specific functionality, you have 3 options:
 
+- Open an issue using https://github.com/CiscoDevNet/ansible-aci/issues/new/choose so that Cisco developers can automate it
 - Learn the ACI object model and use the low-level APIC REST API using the :ref:`aci_rest <aci_rest_module>` module
-- Write your own dedicated modules, which is actually quite easy
-
-.. seealso::
-
-   `ACI Fundamentals: ACI Policy Model <https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/1-x/aci-fundamentals/b_ACI-Fundamentals/b_ACI-Fundamentals_chapter_010001.html>`_
-       A good introduction to the ACI object model.
-   `APIC Management Information Model reference <https://developer.cisco.com/docs/apic-mim-ref/>`_
-       Complete reference of the APIC object model.
-   `APIC REST API Configuration Guide <https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/2-x/rest_cfg/2_1_x/b_Cisco_APIC_REST_API_Configuration_Guide.html>`_
-       Detailed guide on how the APIC REST API is designed and used, incl. many examples.
+- Contribute to the Cisco DevNet's ansible-aci by writing your own dedicated modules and be a part of the Cisco ansible-aci community
 
 .. _aci_dev_guide_git:
 
+Let’s look at how we can retrieve the current version of collection. 
+
 Fork, Clone and Branch
 ======================
+
+A fork is a copy of a repository that allows you to make changes to the repository without affecting the original project.
+You can contribute to the original project using Pull Requests from the forked repository.
 
 * Go to: https://github.com/CiscoDevNet/ansible-aci
 * Fork CiscoDevnet’s **ansible-aci** repo. 
@@ -46,10 +43,12 @@ Fork, Clone and Branch
 
    `_How to fork a repo: <https://docs.github.com/en/github/getting-started-with-github/fork-a-repo>`_
    
+Clone allows you to copy a repository to your local machine. 
+
 * Clone the forked repo by going to terminal and enter: 
 .. code-block:: Blocks
 
-   git clone https://github.com/CiscoDevNet/ansible-aci.git
+   git clone https://github.com/<User>/ansible-aci.git
 
 * Create a branch from your master by using the following commands on the terminal and add the main repo **upstream**:
 .. code-block:: Blocks
@@ -993,3 +992,13 @@ The following git commands are for reference:
 
 
 * Make a pull request from your forked repo to the original repo.
+
+.. seealso::
+
+   `ACI Fundamentals: ACI Policy Model <https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/1-x/aci-fundamentals/b_ACI-Fundamentals/b_ACI-Fundamentals_chapter_010001.html>`_
+       A good introduction to the ACI object model.
+   `APIC Management Information Model reference <https://developer.cisco.com/docs/apic-mim-ref/>`_
+       Complete reference of the APIC object model.
+   `APIC REST API Configuration Guide <https://www.cisco.com/c/en/us/td/docs/switches/datacenter/aci/apic/sw/2-x/rest_cfg/2_1_x/b_Cisco_APIC_REST_API_Configuration_Guide.html>`_
+       Detailed guide on how the APIC REST API is designed and used, incl. many examples.
+
