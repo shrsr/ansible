@@ -52,17 +52,18 @@ Clone allows you to copy a repository to your local machine.
    git clone https://github.com/<Forked Repo>/ansible-aci.git
 
 
-* Add the main repository "upstream".
+* Add the main repository "upstream"
 
-"origin" is name for your forked repo, from which you push and pull while "upstream" is a name for the main repo, from where you pull and keep a clone of your fork updated, but you don't have push access to it.
+"origin" is name for your forked repo, from which you push and pull while "upstream" is a name for the main repo, from where you pull and keep a clone of your fork updated, but you don't have push access to it. Adding the main repository "upstream" is a one time operation.
 .. code-block:: Blocks
+
    git remote add upstream https://github.com/CiscoDevNet/aci-go-client.git
 
 
-Creating branches makes it easier to fix bugs, add new capabilities and integrate new versions after they have been tested in isolation. Master is the default
-branch of the local repository.
+Creating branches makes it easier to fix bugs, add new features and integrate new versions after they have been tested in isolation. Master is the default
+branch of the local repository. Each time you need to make changes to a module we need to create a new branch from master.
 
-* Create a branch from your master by using the following commands on the terminal and add the main repo **upstream**:
+* Create a branch from master by using the following commands on the terminal and add the main repo **upstream**:
 .. code-block:: Blocks
    
    git master
@@ -70,6 +71,8 @@ branch of the local repository.
    git remote add upstream https://github.com/CiscoDevNet/ansible-aci.git
 
 * Go to **ansible-aci -> plugins -> modules** folder. The new module goes in this folder.
+
+The modules folder consists of modules that cover a specific functionality of the objects in ACI. The module_utils folder has the aci.py file which serves as a library for the modules. Most modules in the collection borrow functions from this libarary.
 
 So let's look at how a typical ACI module is built.
 
