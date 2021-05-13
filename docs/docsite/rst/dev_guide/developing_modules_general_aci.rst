@@ -43,12 +43,21 @@ You can contribute to the original project using Pull Requests from the forked r
 
    `_How to fork a repo: <https://docs.github.com/en/github/getting-started-with-github/fork-a-repo>`_
    
+  
 Clone allows you to copy a repository to your local machine. 
 
 * Clone the forked repo by going to terminal and enter: 
 .. code-block:: Blocks
 
-   git clone https://github.com/<User>/ansible-aci.git
+   git clone https://github.com/<Forked Repo>/ansible-aci.git
+
+
+add the main repo upstream
+
+   git remote add upstream https://github.com/CiscoDevNet/aci-go-client.git
+
+Creating branches makes it easier to fix bugs, add new capabilities and integrate new versions after they have been tested in isolation. Master is the default
+branch of the local repository.
 
 * Create a branch from your master by using the following commands on the terminal and add the main repo **upstream**:
 .. code-block:: Blocks
@@ -59,7 +68,7 @@ Clone allows you to copy a repository to your local machine.
 
 * Go to **ansible-aci -> plugins -> modules** folder. The new module goes in this folder.
 
-So let's look at how a typical ACI module is built up.
+So let's look at how a typical ACI module is built.
 
 .. _aci_dev_guide_module_structure:
 
