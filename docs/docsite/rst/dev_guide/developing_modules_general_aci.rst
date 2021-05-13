@@ -33,6 +33,7 @@ Let’s look at how we can retrieve the current version of collection.
 Fork, Clone and Branch
 ======================
 
+**Fork**
 A fork is a copy of a repository that allows you to make changes to the repository without affecting the original project.
 You can contribute to the original project using Pull Requests from the forked repository.
 
@@ -43,7 +44,7 @@ You can contribute to the original project using Pull Requests from the forked r
 
    `_How to fork a repo: <https://docs.github.com/en/github/getting-started-with-github/fork-a-repo>`_
    
-  
+**Clone**  
 Clone allows you to copy a repository to your local machine. 
 
 * Clone the forked repo by going to terminal and enter: 
@@ -52,14 +53,11 @@ Clone allows you to copy a repository to your local machine.
    git clone https://github.com/<Forked Repo>/ansible-aci.git
 
 
-* Add the main repository "upstream"
-
-"origin" is name for your forked repo, from which you push and pull while "upstream" is a name for the main repo, from where you pull and keep a clone of your fork updated, but you don't have push access to it. Adding the main repository "upstream" is a one time operation.
-.. code-block:: Blocks
-
-   git remote add upstream https://github.com/CiscoDevNet/aci-go-client.git
+**Naming Convention**
+"origin" is name for your forked repo, from which you push and pull and "upstream" is a name for the main repo, from where you pull and keep a clone of your fork updated. You don't have push access to "upstream". Adding the main repository "upstream" is a one time operation.
 
 
+**Branch**
 Creating branches makes it easier to fix bugs, add new features and integrate new versions after they have been tested in isolation. Master is the default
 branch of the local repository. Each time you need to make changes to a module we need to create a new branch from master.
 
