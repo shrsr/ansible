@@ -52,9 +52,12 @@ Clone allows you to copy a repository to your local machine.
    git clone https://github.com/<Forked Repo>/ansible-aci.git
 
 
-add the main repo upstream
+* Add the main repository "upstream".
 
+"origin" is name for your forked repo, from which you push and pull while "upstream" is a name for the main repo, from where you pull and keep a clone of your fork updated, but you don't have push access to it.
+.. code-block:: Blocks
    git remote add upstream https://github.com/CiscoDevNet/aci-go-client.git
+
 
 Creating branches makes it easier to fix bugs, add new capabilities and integrate new versions after they have been tested in isolation. Master is the default
 branch of the local repository.
