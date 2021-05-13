@@ -18,11 +18,11 @@ What's covered in this section:
 
 Introduction
 ============
-The `cisco.aci collection <https://galaxy.ansible.com/cisco/aci>`_ already includes a large number of Cisco ACI modules, however the ACI object model is huge and covering all possible functionality would easily cover more than 1500 individual modules.
+The `cisco.aci collection <https://galaxy.ansible.com/cisco/aci>`_ already includes a large number of Cisco ACI modules, however the ACI object model is huge and covering all possible functionality would easily cover more than 1500 individual modules. Therefore, Cisco develops modules asked by people on a just in time basis.
 
 If you need specific functionality, you have 3 options:
 
-- Open an issue using https://github.com/CiscoDevNet/ansible-aci/issues/new/choose so that Cisco developers can automate it
+- Open an issue using https://github.com/CiscoDevNet/ansible-aci/issues/new/choose so that Cisco developers can build, enhance or fix the modules for you
 - Learn the ACI object model and use the low-level APIC REST API using the :ref:`aci_rest <aci_rest_module>` module
 - Contribute to the Cisco DevNet's ansible-aci by writing your own dedicated modules and be a part of the Cisco ansible-aci community
 
@@ -72,7 +72,7 @@ branch of the local repository. Each time you need to make changes to a module w
 
 * Go to **ansible-aci -> plugins -> modules** folder. The new module goes in this folder.
 
-The modules folder consists of modules that cover a specific functionality of the objects in ACI. The module_utils folder has the aci.py file which serves as a library for the modules. Most modules in the collection borrow functions from this libarary.
+The modules folder consists of modules that cover a specific functionality of the objects in ACI. The module_utils folder has the aci.py file which serves as a library for the modules. Most modules in the collection borrow functions from this library.
 
 So let's look at how a typical ACI module is built.
 
