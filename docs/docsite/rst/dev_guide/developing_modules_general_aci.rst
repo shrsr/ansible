@@ -103,16 +103,23 @@ Now that our local master branch is up-to-date with the upstream repo, we can cr
    
 You now have a clean branch of the latest master, where you can make all of your changes. By keeping your changes in a dedicated branch, you can keep the master branch clean and on track with the upstream master. This makes it easier to keep the local master branch updated without requiring to merge code or rebase the master branch. As a best practice we recommend that you do not commit changes to your local master branch. 
 
+Now that we have forked the repo, cloned the repo and created a feature branch, let us look at how the repository and modules are structured.
+
+.. _aci_dev_guide_module_structure:
+
+ACI module structure
+====================
+
+Structure of the cisco.aci collection
+-------------------------------------
+
+//Explain different directory structure-test, plugins, galaxy.yml, changelog, modules. In the plugins directory there's a do fragment section....
 * Go to **ansible-aci -> plugins -> modules** folder. The new module goes in this folder.
 
 The modules folder consists of modules that cover a specific functionality of the objects in ACI. The module_utils folder has the aci.py file which serves as a library for the modules. Most modules in the collection borrow functions from this library.
 
 So let's look at how a typical ACI module is built.
 
-.. _aci_dev_guide_module_structure:
-
-ACI module structure
-====================
 
 Importing objects from Python libraries
 ---------------------------------------
