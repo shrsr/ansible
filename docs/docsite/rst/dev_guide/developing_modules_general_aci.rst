@@ -804,6 +804,7 @@ The following example consists of Documentation, Examples and Module Sections di
 
 .. _aci_dev_guide_testing:
 
+//Let's start by copying an existing module---take vrf and create bd...get class correspond to payload. Show how to build a module on top of a related module.
 Testing ACI library functions
 =============================
 You can test your ``construct_url()`` and ``payload()`` arguments without accessing APIC hardware by using the following python script:
