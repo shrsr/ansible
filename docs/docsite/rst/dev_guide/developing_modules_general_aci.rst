@@ -20,7 +20,7 @@ Introduction
 ============
 The `cisco.aci collection <https://galaxy.ansible.com/cisco/aci>`_ already includes a large number of Cisco ACI modules, however the ACI object model is huge and covering all possible functionality would easily cover more than 1500 individual modules. Therefore, Cisco develops modules asked by people on a just in time basis.
 
-If you need specific functionality, you have 3 options:
+If you need a specific functionality, you have 3 options:
 
 - Open an issue using https://github.com/CiscoDevNet/ansible-aci/issues/new/choose so that Cisco developers can build, enhance or fix the modules for you
 - Learn the ACI object model and use the low-level APIC REST API using the :ref:`aci_rest <aci_rest_module>` module
@@ -28,21 +28,27 @@ If you need specific functionality, you have 3 options:
 
 .. _aci_dev_guide_git:
 
-Let’s look at how we can retrieve the current version of collection. 
+In this guide we're going to concentrate on the third option to show you how to build your own module and contribute it back to the ansible-aci project.
+Let’s look at how we can retrieve the lastest version of the collection. 
 
 Fork, Clone and Branch
 ======================
+The collection code is located in a git repository (https://github.com/CiscoDevNet/ansible-aci). You can directly clone this repository to retrieve the latest version of code, but in order to later contribute your code back to the project, you will need to create a fork to be able to create a proper pull request. 
+
+Let's create a fork of the repository.
 
 **Fork**
    A fork is a copy of a repository that allows you to make changes to the repository without affecting the original project.
-   You can contribute to the original project using Pull Requests from the forked repository.
+   You can contribute your changes back to the original project by using Pull Requests from the forked repository.
 
 * Go to: https://github.com/CiscoDevNet/ansible-aci
-* Fork CiscoDevnet’s **ansible-aci** repo. 
+* Fork CiscoDevnet’s **ansible-aci** repo by clicking the top right hand corner fork button.
 
 .. seealso::
 
    `_How to fork a repo: <https://docs.github.com/en/github/getting-started-with-github/fork-a-repo>`_
+   
+Now that we have forked our repository, let's clone it.
    
 **Clone**  
    Clone allows you to copy a repository to your local machine. 
@@ -50,23 +56,52 @@ Fork, Clone and Branch
 * Clone the forked repo by going to terminal and enter: 
 .. code-block:: Blocks
 
-   git clone https://github.com/<Forked Repo>/ansible-aci.git
+   git clone https://github.com/<Forked Organization>/ansible-aci.git
 
 
 **Naming Convention**
-   "origin" is name for your forked repo, from which you push and pull and "upstream" is a name for the main repo, from where you pull and keep a clone of your   fork updated. You don't have push access to "upstream". Adding the main repository "upstream" is a one time operation.
+   "origin" is the default name for the first remote of a clone repository. In this case it represents your forked repo where you are going to make changes, commit and push your code to GitHub. 
+   
+* Verify the name of the remote of your forked repository by going to terminal and enter: 
+.. code-block:: Blocks
 
+   git remote -v
+
+You should see in the output your repository listed after the name origin.
+.. code-block:: Blocks
+origin        https://github.com/<Forked Organization>/ansible-aci.git (fetch)
+origin        https://github.com/<Forked Organization>/ansible-aci.git (push)
+  
+To be able to retrieve the latest changes made to the upstream project repo (CiscoDevNet/ansible-aci), we need to it as a second remote. We recommend calling this second remote "upstream" and we will keep referring to it as upstream in the rest of the document.
+
+* Add the upstream repo as a new remote:
+.. code-block:: Blocks
+
+   git remote add upstream https://github.com/CiscoDevNet/ansible-aci.git
+   
+Adding the main repository "upstream" is a one time operation.
+Now that we have added the upstream repo as remote, we can make sure that our local master branch is up-to-date with the upstream repository.
+
+* Update local master branch from upstream repository:
+.. code-block:: Blocks
+
+   git checkout master
+   git pull upstream master
+   
+Now that our local master branch is up-to-date with the upstream repo, we can create a feature branch.
 
 **Branch**
    Creating branches makes it easier to fix bugs, add new features and integrate new versions after they have been tested in isolation. Master is the default
-   branch of the local repository. Each time you need to make changes to a module we need to create a new branch from master.
+   branch of the local repository. Each time you need to make changes to a module or create a new module we recommend that you create a new dedicated branch from master.
 
-* Create a branch from master by using the following commands on the terminal and add the main repo **upstream**:
+* Create a branch from master by using the following commands on the terminal:
 .. code-block:: Blocks
    
-   git master
-   git checkout -b <branch-name> 
-   git remote add upstream https://github.com/CiscoDevNet/ansible-aci.git
+   git checkout master
+   git checkout -b <new-branch-name> 
+   git branch
+   
+You now have a clean branch of the latest master, where you can make all of your changes. By keeping your changes in a dedicated branch, you can keep the master branch clean and on track with the upstream master. This makes it easier to keep the local master branch updated without requiring to merge code or rebase the master branch. As a best practice we recommend that you do not commit changes to your local master branch. 
 
 * Go to **ansible-aci -> plugins -> modules** folder. The new module goes in this folder.
 
